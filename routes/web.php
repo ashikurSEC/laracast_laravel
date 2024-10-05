@@ -1,75 +1,19 @@
 <?php
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use App\Models\Job;
 
 Route::get('/', function () {
-    return view('home', [
-        'jobs' => [
-            [
-                'title'     => 'Director',
-                'salary'    => '$30000'
-            ],
-            [
-                'title'     => 'Manager',
-                'salary'    => '$20000'
-            ],
-            [
-                'title'     => 'Developer',
-                'salary'    => '$60000'
-            ]
-        ]
-    ]);
+    return view('home');
 });
 
 
 Route::get('/jobs', function () {
-    return view('jobs', [
-        'jobs' => [
-            [
-                'id'        => 1,
-                'title'     => 'Director',
-                'salary'    => '$30000'
-            ],
-            [
-                'id'        => 2,
-                'title'     => 'Manager',
-                'salary'    => '$20000'
-            ],
-            [
-                'id'        => 3,
-                'title'     => 'Developer',
-                'salary'    => '$60000'
-            ]
-        ]
-    ]);
+    return view('jobs', ['jobs' => Job::all()]);
 });
 
 Route::get('/jobs/{id}', function($id) {
-    $jobs = [
-        [
-            'id'        => 1,
-            'title'     => 'Director',
-            'salary'    => '$30000'
-        ],
-        [
-            'id'        => 2,
-            'title'     => 'Manager',
-            'salary'    => '$20000'
-        ],
-        [
-            'id'        => 3,
-            'title'     => 'Developer',
-            'salary'    => '$60000'
-        ]
-    ];
-
-   $job = Arr::first($jobs, fn($job)=>$job['id']==$id);
-
-   if ( !$job ) {
-    abort(404);
-   }
-
+    $job = Job::find($id);
    return view('job', ['job'=>$job]);
 });
 
