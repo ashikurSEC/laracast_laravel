@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class Job {
-    public static function all(): array
+class Job{
+    public static function all ()
     {
         return [
             ['id' => 1, 'title' => 'Software Developer', 'salary' => '$100,000'],
@@ -17,11 +17,11 @@ class Job {
         ];
     }
 
-    public static function find ( int $id ): array
+    public static function find ( $id ): array
     {
-        $job = Arr::first(self::all(), fn($job)=>$job['id']==$id);
+        $job = Arr::first( self::all(),fn( $job ) => $job['id'] == $id );
 
-        if ( !$job ) {
+        if ( ! $job ) {
             abort(404);
         }
 
